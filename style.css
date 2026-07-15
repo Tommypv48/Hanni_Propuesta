@@ -1,0 +1,423 @@
+/* ==========================================================================
+   DISEÑO VISUAL Y SISTEMA DE ESTILOS - "¿QUIERES SER MI NOVIA?"
+   ========================================================================== */
+
+:root {
+  /* Paleta de colores romántica y moderna */
+  --bg-gradient: linear-gradient(135deg, #fff3f5 0%, #ffe3e7 50%, #ffd1d8 100%);
+  --card-bg: rgba(255, 255, 255, 0.82);
+  --primary-color: #ff5e7e;
+  --primary-hover: #ff3b60;
+  --secondary-color: #ffe8ec;
+  --secondary-text: #c2185b;
+  --text-color: #4a4a4a;
+  --text-pink: #d81b60;
+  --text-dark-pink: #880e4f;
+  
+  /* Tipografías */
+  --title-font: 'Playfair Display', serif;
+  --body-font: 'Outfit', sans-serif;
+  
+  /* Transiciones estándar */
+  --transition-smooth: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-gradient);
+  font-family: var(--body-font);
+  color: var(--text-color);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Lienzo de partículas de fondo */
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Contenedor principal */
+.app-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 480px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Pantallas (Pregunta y Éxito) */
+.screen {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.screen.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Título de la pregunta */
+.title-text {
+  font-family: var(--title-font);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-pink);
+  margin-bottom: 24px;
+  text-shadow: 0 4px 10px rgba(216, 27, 96, 0.08);
+  line-height: 1.2;
+  text-align: center;
+  transition: transform 0.4s ease, color 0.4s ease;
+}
+
+/* Tarjeta / Nota de Amor */
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: 0 15px 40px rgba(255, 94, 126, 0.12),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  width: 100%;
+  margin-bottom: 28px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2),
+              box-shadow 0.5s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(255, 94, 126, 0.18),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Contenedor de la Imagen */
+.image-container {
+  width: 100%;
+  aspect-ratio: 1.05 / 1;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background-color: #fff9fa;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.03);
+  position: relative;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Efectos de cambio de imagen */
+.fade-in-image {
+  animation: fadeInImg 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fadeInImg {
+  from {
+    opacity: 0;
+    transform: scale(1.08) rotate(1deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* Texto de la tarjeta */
+.card-caption {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark-pink);
+  margin: 0;
+  font-family: var(--title-font);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Botones */
+.buttons-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 80px; /* Evita saltos bruscos cuando el botón "Sí" crece */
+}
+
+.btn {
+  border: none;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  transition: var(--transition-smooth);
+  outline: none;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.btn-yes {
+  background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+  color: white;
+  box-shadow: 0 8px 24px rgba(255, 117, 140, 0.35);
+  z-index: 5;
+  transform: scale(var(--yes-scale, 1));
+}
+
+.btn-yes:hover {
+  transform: scale(calc(var(--yes-scale, 1) * 1.08)) translateY(-2px);
+  box-shadow: 0 12px 28px rgba(255, 117, 140, 0.45);
+}
+
+.btn-yes:active {
+  transform: scale(calc(var(--yes-scale, 1) * 0.96)) translateY(0);
+}
+
+.btn-no {
+  background: var(--secondary-color);
+  color: var(--secondary-text);
+  box-shadow: 0 8px 20px rgba(252, 228, 236, 0.4);
+  z-index: 4;
+  transform: scale(var(--no-scale, 1));
+}
+
+.btn-no:hover {
+  transform: scale(calc(var(--no-scale, 1) * 1.04)) translateY(-1px);
+  background: #fecddc;
+}
+
+.btn-no:active {
+  transform: scale(calc(var(--no-scale, 1) * 0.95));
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+  display: inline-block;
+}
+
+/* ==========================================================================
+   ESTILOS PANTALLA DE ÉXITO
+   ========================================================================== */
+
+.success-title {
+  font-family: var(--title-font);
+  font-size: 3rem;
+  color: var(--text-pink);
+  margin-bottom: 8px;
+  text-shadow: 0 4px 15px rgba(216, 27, 96, 0.12);
+  text-align: center;
+  animation: heartbeat 1.4s infinite ease-in-out;
+}
+
+.success-subtitle {
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-dark-pink);
+  margin-bottom: 26px;
+  max-width: 420px;
+  text-align: center;
+  min-height: 54px; /* Para prevenir saltos de línea al escribirse */
+}
+
+/* Efecto de escritura (Cursor) */
+.cursor-typing::after {
+  content: '|';
+  animation: blink 0.7s step-end infinite;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+@keyframes blink {
+  from, to { color: transparent }
+  50% { color: var(--primary-color); }
+}
+
+/* Grid del Collage Artístico */
+.collage-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 28px;
+}
+
+.collage-item {
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(255, 94, 126, 0.12);
+  border: 5px solid white;
+  background: white;
+  transition: var(--transition-smooth);
+  position: relative;
+  aspect-ratio: 1;
+}
+
+.collage-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Rotación desordenada para simular fotos físicas de polaroid */
+.collage-item.item-1 { transform: rotate(-4deg); }
+.collage-item.item-2 { transform: rotate(3deg); }
+.collage-item.item-3 { transform: rotate(2deg); }
+.collage-item.item-4 { transform: rotate(-3deg); }
+
+.collage-item:hover {
+  transform: scale(1.08) rotate(0deg);
+  z-index: 10;
+  box-shadow: 0 15px 35px rgba(255, 94, 126, 0.22);
+}
+
+/* Frases secuenciales */
+.love-phrases {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.phrase {
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text-dark-pink);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 1s ease, transform 1s ease;
+  text-align: center;
+  font-weight: 300;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 6px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+}
+
+.phrase.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   ANIMACIONES CLAVE (KEYFRAMES)
+   ========================================================================== */
+
+/* Latido de corazón para el título y el botón Sí */
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.05); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.05); }
+  70% { transform: scale(1); }
+}
+
+/* Vibración/Movimiento para cambios bruscos o sacudidas */
+@keyframes shake {
+  0%, 100% { transform: translateX(0) scale(var(--current-scale, 1)); }
+  20%, 60% { transform: translateX(-6px) scale(var(--current-scale, 1)); }
+  40%, 80% { transform: translateX(6px) scale(var(--current-scale, 1)); }
+}
+
+.shake-animation {
+  animation: shake 0.4s ease-out;
+}
+
+/* ==========================================================================
+   ADAPTABILIDAD / DISEÑO RESPONSIVO (MOBILE FIRST)
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .title-text {
+    font-size: 1.8rem;
+    margin-bottom: 18px;
+  }
+  
+  .card {
+    padding: 16px;
+    margin-bottom: 22px;
+    border-radius: 22px;
+  }
+  
+  .image-container {
+    border-radius: 14px;
+    margin-bottom: 14px;
+  }
+  
+  .card-caption {
+    font-size: 1.15rem;
+  }
+  
+  .buttons-container {
+    gap: 12px;
+  }
+  
+  .btn {
+    padding: 12px 26px;
+    font-size: 1rem;
+  }
+  
+  .success-title {
+    font-size: 2.4rem;
+  }
+  
+  .success-subtitle {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+  
+  .collage-grid {
+    gap: 10px;
+    padding: 0 10px;
+  }
+  
+  .collage-item {
+    border-width: 3px;
+    border-radius: 12px;
+  }
+  
+  .phrase {
+    font-size: 0.95rem;
+    padding: 4px 12px;
+  }
+}

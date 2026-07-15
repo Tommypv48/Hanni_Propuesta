@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Quieres ser mi novia? ❤️</title>
+  
+  <!-- Google Fonts para tipografías elegantes y románticas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Lienzo para corazones flotantes de fondo -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Contenedor principal de la aplicación -->
+  <main class="app-container">
+    
+    <!-- PANTALLA PRINCIPAL (Pregunta) -->
+    <section id="question-screen" class="screen active">
+      <h1 id="main-heading" class="title-text">¿Quieres ser mi novia?</h1>
+      
+      <!-- Tarjeta tipo carta de amor -->
+      <div class="card">
+        <div class="image-container">
+          <!-- Las imágenes se pueden reemplazar en el directorio /images/ -->
+          <img id="card-image" src="images/photo_1.png" alt="Ilustración romántica" class="fade-in-image">
+        </div>
+        <p id="card-text" class="card-caption">Me encantas ❤️</p>
+      </div>
+      
+      <!-- Contenedor de botones -->
+      <div class="buttons-container">
+        <button id="btn-yes" class="btn btn-yes">
+          <span class="btn-icon">💖</span> Sí
+        </button>
+        <button id="btn-no" class="btn btn-no">
+          <span class="btn-icon">💔</span> No
+        </button>
+      </div>
+    </section>
+
+    <!-- PANTALLA DE ÉXITO (Cuando dice Sí) -->
+    <section id="success-screen" class="screen">
+      <h1 class="success-title">❤️ ¡Te amo!</h1>
+      
+      <p id="success-subtitle" class="success-subtitle"></p>
+      
+      <!-- Collage de fotos responsivo y artístico -->
+      <div class="collage-grid">
+        <div class="collage-item item-1">
+          <!-- Reemplazable por fotos reales en /images/collage_1.png -->
+          <img src="images/collage_1.png" alt="Nuestros momentos">
+        </div>
+        <div class="collage-item item-2">
+          <!-- Reemplazable por fotos reales en /images/collage_2.png -->
+          <img src="images/collage_2.png" alt="Nuestros momentos">
+        </div>
+        <div class="collage-item item-3">
+          <!-- Reemplazable por fotos reales en /images/collage_3.png -->
+          <img src="images/collage_3.png" alt="Nuestros momentos">
+        </div>
+        <div class="collage-item item-4">
+          <!-- Reemplazable por fotos reales en /images/collage_4.png -->
+          <img src="images/collage_4.png" alt="Nuestros momentos">
+        </div>
+      </div>
+
+      <!-- Contenedor para las frases románticas secuenciales -->
+      <div id="love-phrases" class="love-phrases"></div>
+    </section>
+
+  </main>
+
+  <!-- Lógica e interacción de la página -->
+  <script src="script.js"></script>
+</body>
+</html>
